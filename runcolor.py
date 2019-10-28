@@ -10,19 +10,21 @@ import sys
 
 OUTPUT_FOLDER = "/tmp/"
 s = 1 # for example sensitivity=5/256 color values in range [0,255]
-PIXEL_NUMBER = 2000
+PIXEL_NUMBER = 2000 #numero di pixel con il colore selezionato
+
+#seleziona un colore per il quale vuoi cercare, di default giallo
+boundaries = [
+#([17, 15, 100], [50, 56, 200]),  #rosso
+#([86, 31, 4], [220, 88, 50]),    #blu
+([25, 146, 190], [62, 174, 250]), #giallo
+#([103, 86, 65], [145, 133, 128]) #grigio
+]
+
 
 def color(file):
     image = cv2.imread(file)
     image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
     boundaries = [([25, 146, 190], [62, 174, 250])]
-
-#red, blue, yellow, and gray
-#boundaries = [
-#([17, 15, 100], [50, 56, 200]),
-#([86, 31, 4], [220, 88, 50]),
-#([25, 146, 190], [62, 174, 250]),
-#([103, 86, 65], [145, 133, 128])]
 
     for i, (lower, upper) in enumerate(boundaries):
        lower = np.array([color-s if color-s>-1 else 0 for color in lower], dtype="uint8")
